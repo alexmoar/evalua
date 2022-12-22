@@ -170,3 +170,5 @@ MESSAGE_TAGS = {
 }
 
 MAX_UPLOAD_SIZE = 2000000000000000
+import django_heroku
+django_heroku.settings(locals())
