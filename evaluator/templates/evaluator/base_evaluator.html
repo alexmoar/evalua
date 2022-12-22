@@ -1,0 +1,43 @@
+{% extends 'evaluator/base.html' %}
+{% load static evaluator_tag %}
+
+
+{% block _css %}
+    <style>
+        .danger-color {
+            color: #e65252;
+        }
+        .href-view-project {
+            display: flex!important;
+            justify-content: space-between;
+        }
+        .qualification {
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .qualification.approved {
+            color: #4d9121;
+        }
+        .qualification.reapproved {
+            color: #e65252;
+        }
+        @media (max-width: 1650px) {
+            body.with-content-panel .content-box {
+                padding-left: 2rem!important;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+{% block content_writer %}
+    <div class="todo-app-w">
+        <!--END - To Do SIDEBAR-->
+        <div class="todo-content">
+            {% block content_block %}{% endblock content_block %}
+        </div>
+    </div>
+
+{% endblock %}
+

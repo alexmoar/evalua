@@ -1,0 +1,33 @@
+<div class="step-content" id="stepContent3" v-show="step==3">
+    <div class="element-wrapper">
+        <h5 class="form-header">
+            Archivos adjuntos
+        </h5>
+        <div class="form-desc">
+            En esta sección (si aplica), adjunta lo(s) archivo(s) de tu proyecto.
+        </div>
+        <form enctype="multipart/form-data" method="post"
+              action="{% url 'projects:upload_files' %}"
+              class="dropzone" id="my-awesome-dropzone">
+            {% csrf_token %}
+            <input type="hidden" name="id_project" v-model="id_project">
+            <div class="dz-message">
+                <div>
+                    <h4>Adjunta tus archivos acá.</h4>
+                    <div class="text-muted">
+                        Arrastra y suelta tus archivos acá...
+                        archivos permitidos .png, jpg, .pdf
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-buttons-w text-right">
+            <button @click="saveDraft(3)"  class="btn btn-info step-trigger-btn">
+                Guardar borrador
+            </button>
+            <button @click="changeStep(4)"  class="btn btn-primary step-trigger-btn">
+                Continuar
+            </button>
+        </div>
+    </div>
+</div>

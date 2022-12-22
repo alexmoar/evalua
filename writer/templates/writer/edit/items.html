@@ -1,0 +1,142 @@
+<div class="element-box-content">
+    <div class="container-fluid">
+        <template v-for="q in questions">
+            <div class="row" v-if="!q.delete">
+                <div class="example-column title-resume-item col-12">
+                    <h5 @click="editItemProject(q.id)"
+                        data-target="#itemModal"
+                        data-toggle="modal">${q.title}</h5>
+                    <button class="close btn-remove" v-if="isEditable"
+                            type="button"
+                            data-target="#itemDeleteModal"
+                            data-toggle="modal"
+                            @click="setItemDelete(q)"
+                    >
+                        <span class="os-icon os-icon-close"></span>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+
+<div class="row" v-if="isEditable">
+    <div id="item-0"></div>
+    <div class="col-12">
+        <div class="element-box add-item"
+             data-target="#addItemModal"
+             data-toggle="modal">
+            <i class="batch-icon-add"></i>
+            <span>Agregar un nuevo Item</span>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" class="modal fade" id="addItemModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header faded smaller">
+                <div class="modal-title">
+                    <span>Agregar Item</span>
+                </div>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                        aria-hidden="true"> &times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input class="form-control" name="title-1" id="title-1"
+                                   placeholder="Ingresa un título"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Description</label>
+                            <textarea class="form-control" name="answer-1" id="answer-1" rows="3">
+                                </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer buttons-on-left">
+                <button class="btn btn-teal" type="button" @click="createItem">Guardar Item</button>
+                <button class="btn btn-link" data-dismiss="modal" type="button" id="close-create-item">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="show-item" v-show="showItem">
+    <div v-if="isEditable">
+        <div class="modal-header faded smaller">
+            <div class="modal-title">
+                <span>Editar datos generales</span>
+            </div>
+            <button class="close" @click="showItem=false" type="button"><span
+                    aria-hidden="true"> &times;</span></button>
+        </div>
+        <div class="modal-body">
+            <form class="row">
+                <div class="col-12">
+                    <input type="hidden" v-model="itemEdit.id">
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input class="form-control" name="title-edit" id="title-edit"
+                               placeholder="Ingresa un título"
+                               type="text" v-model="itemEdit.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <textarea class="form-control"
+                                  name="answer-edit"
+                                  id="answer-edit"
+                                  rows="3"
+                        ></textarea>
+                    </div>
+                </div>
+            </form>
+            <button class="btn btn-teal" type="button" @click="updateQuestion">Guardar cambios</button>
+            <button class="btn btn-link" @click="showItem=false" type="button">Cancelar</button>
+        </div>
+    </div>
+    <div v-else>
+        <div class="modal-header faded smaller">
+            <div class="modal-title">
+                <span>${itemEdit.title}</span>
+            </div>
+            <button class="close" @click="showItem=false" type="button"><span
+                    aria-hidden="true"> &times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div v-html="itemEdit.answer"></div>
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade" id="itemDeleteModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header faded smaller">
+                <div class="modal-title">
+                    <span>ID: ${itemDelete.id} </span>
+                    <strong>${itemDelete.title}</strong>
+                </div>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                        aria-hidden="true"> &times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="col-12">
+                        <h4>Estás seguro de querer eliminar este item?</h4>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer buttons-on-left">
+                <button class="btn btn-teal" type="button" @click="deleteItem(itemDelete.id)">Si, eliminar</button>
+                <button class="btn btn-link" data-dismiss="modal" type="button" id="close-delete-item">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

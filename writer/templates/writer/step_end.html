@@ -1,0 +1,17 @@
+<div id="stepContent2" v-show="step=={{ step }}">
+    <h4 class="todo-content-header text-center">
+        <i class="os-icon os-icon-ui-83"></i>
+        <span>
+            Estás a un paso de enviar tu proyecto para que una persona experta evalúe tu proyecto.
+        </span>
+    </h4>
+    <div class="form-buttons-w text-center">
+        <button class="btn btn-secondary"
+                @click="changeStep(3)">
+            Volver
+        </button>
+        <button @click="sendProject" class="btn btn-primary step-trigger-btn">
+            Enviar
+        </button>
+    </div>
+</div>

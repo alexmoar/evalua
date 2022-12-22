@@ -1,0 +1,251 @@
+{% extends 'evaluator/base_evaluator.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+    <link href="{% static 'icon_fonts_assets/batch-icons/style.css' %}" rel="stylesheet">
+
+
+    <link href="{% static 'css/gallery.css' %}" rel="stylesheet">
+    <style>
+        .content-answer {
+            padding: 12px 15px;
+            background: #f4f4f4;
+            border: 1px solid #f4f4f4;
+            margin-bottom: 15px;
+        }
+
+        .add-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 30%;
+            width: 100%;
+            opacity: .5;
+            cursor: pointer;
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        .add-item:hover {
+            opacity: 1;
+        }
+
+        .add-item i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .add-item span {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .bg-item {
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .title-resume-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-resume-item h5 {
+            margin: 0;
+        }
+
+        .btn-delete-item {
+            position: absolute;
+            right: 22px;
+            top: 5px;
+        }
+
+        .btn-delete-item,
+        .btn-remove {
+            padding: 12px 16px !important;
+            font-weight: bold;
+            background-color: #ffffff !important;
+            border: 0;
+            box-shadow: 0px 2px 4px rgb(126 142 177 / 12%);
+            border-radius: 5px;
+            z-index: 0;
+            cursor: pointer !important;
+            opacity: 1;
+            font-size: 10px;
+        }
+
+        .btn-remove,
+        .btn-delete-item span {
+            font-weight: bold;
+        }
+
+        .btn-remove,
+        .btn-delete-item:hover {
+            color: red;
+        }
+
+        .element-box-content mark {
+            margin: 0 5px;
+        }
+
+        .tasks-list-w.general-data {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #F9F9F9;
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+
+        .tasks-header.tasks-header-toggler {
+            position: relative !important;
+            left: 0 !important;
+            top: 10px !important;
+            color: #334151 !important;
+            cursor: pointer;
+        }
+
+        .show-item {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-color: #fff;
+            z-index: 99;
+            left: 0;
+            top: 0;
+            overflow: scroll;
+        }
+
+        .cke_dialog {
+            z-index: 10010;
+        }
+
+        :root {
+            --form-control-color: rebeccapurple;
+        }
+
+        .form-radio {
+            display: flex;
+            justify-content: center;
+        }
+
+        .radio-control {
+            font-family: system-ui, sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1.1;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .radio-control:focus-within {
+            color: var(--form-control-color);
+        }
+
+        input[type=radio] {
+            /* Add if not using autoprefixer */
+            -webkit-appearance: none;
+            /* Remove most all native input styles */
+            -moz-appearance: none;
+            appearance: none;
+            /* For iOS < 15 */
+            background-color: var(--form-background);
+            /* Not removed via appearance */
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 50%;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+        }
+
+        input[type=radio]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--form-control-color);
+            /* Windows High Contrast Mode */
+            background-color: CanvasText;
+        }
+
+        input[type=radio]:checked::before {
+            transform: scale(1);
+        }
+
+        input[type=radio]:focus {
+            outline: max(2px, 0.15em) solid currentColor;
+            outline-offset: max(2px, 0.15em);
+        }
+
+        .q-general {
+            font-size: 30px;
+        }
+    </style>
+{% endblock extra_css %}
+
+
+{% block content_block %}
+    <div id="v-app">
+        <div id="stepContent1" v-show="step==1">
+            <h4 class="todo-content-header">
+                <i class="os-icon os-icon-ui-83"></i><span>{{ project.title }}</span>
+                <button class="close btn-remove q-general"
+                        type="button" @click="editItemProject(q.id)"
+                        :style="{ color: style_score }"
+                    >
+                        ${scoreG}/5
+                    </button>
+            </h4>
+            <div class="all-tasks-w">
+                {% include 'evaluator/qualified/content_data_general.html' %}
+                {% include 'evaluator/qualified/content_data_files.html' %}
+            </div>
+
+        <hr>
+        <h3 class="text-center">Calificación: ${ scoreG }/5</h3>
+        <div class="form-radio">
+            <label class="radio-control">
+                <input type="radio" name="general" value="1" v-model="scoreG" @click="setScore(1, 0, 'general')">
+                1
+            </label>
+            <label class="radio-control">
+                <input type="radio" name="general" value="2" v-model="scoreG" @click="setScore(2, 0, 'general')">
+                2
+            </label>
+            <label class="radio-control">
+                <input type="radio" name="general" value="3" v-model="scoreG" @click="setScore(3, 0, 'general')">
+                3
+            </label>
+            <label class="radio-control">
+                <input type="radio" name="general" value="4" v-model="scoreG" @click="setScore(4, 0, 'general')">
+                4
+            </label>
+            <label class="radio-control">
+                <input type="radio" name="general" value="5" v-model="scoreG" @click="setScore(5, 0, 'general')">
+                5
+            </label>
+        </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block _js %}
+
+    {% include 'evaluator/qualified/script.html' %}
+
+{% endblock %}

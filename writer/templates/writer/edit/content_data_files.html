@@ -1,0 +1,63 @@
+<div class="tasks-section">
+    <div class="tasks-header-w">
+        <a class="tasks-header-toggler" href="#" @click="showSectionFiles">
+            <i class="os-icon os-icon-ui-23"></i>
+        </a>
+        <h5 class="tasks-header tasks-header-toggler" @click="showSectionFiles">
+            Archivos adjuntos
+        </h5>
+        <span class="tasks-sub-header">Wed, Sep 25th</span>
+    </div>
+    <div class="tasks-list-w" style="display: none;">
+        <p>En esta sección (si aplica), adjunta lo(s) archivo(s) de tu proyecto.</p>
+        <div class="element-box-content">
+            <div class="container-fluid">
+                <template v-for="f in files">
+                    <div class="row" v-if="!f.delete">
+                        <div class="example-column title-resume-item col-12">
+                            <h5 @click="checkDescription(q.id)">
+                                <template v-if="f.type_file == 'pdf'">
+                                    <a :href="f.file" target="_blank">${f.name}</a>
+                                </template>
+                                <template v-else>
+                                    <a href="#carousel">
+                                        ${f.name}
+                                    </a>
+                                </template>
+                            </h5>
+                            <button v-if="isEditable" class="close btn-remove" type="button" @click="deleteFile(f.id)">
+                                <span class="os-icon os-icon-close"></span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="row" v-show="files.length > 0 && isFilesGallery">
+            <div class="col-sm-12">
+                <div class="element-wrapper">
+                    <div class="element-box">
+                        <section class="gallery">
+                            <div class="carousel" id="carousel"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form v-if="isEditable" enctype="multipart/form-data" method="post"
+              action="{% url 'projects:upload_files' %}"
+              class="dropzone" id="my-awesome-dropzone">
+            {% csrf_token %}
+            <input type="hidden" name="id_project" v-model="id_project">
+            <div class="dz-message">
+                <div>
+                    <h4>Adjunta tus archivos acá.</h4>
+                    <div class="text-muted">
+                        Arrastra y suelta tus archivos acá...
+                        archivos permitidos .png, jpg, .pdf
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

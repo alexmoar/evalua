@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body_tags %}class="auth-wrapper"{% endblock %}
+
+
+{% block content %}
+    <div class="all-wrapper menu-side with-pattern">
+        <div class="auth-box-w">
+            <div class="logo-w width:">
+                <a href=""><img alt="" src="{% static 'img/evalualogo.png' %}"></a>
+            </div>
+            <h4 class="auth-header">
+                Inicio de sesión
+            </h4>
+            <form action="" method="post">
+                {% csrf_token %}
+
+                {% include 'alert_message.html' %}
+
+                <div class="form-group">
+                    <label for="">Usuario</label>
+                    <input class="form-control" name="username"
+                           placeholder="Ingresa tu usuario" type="text">
+                    <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+                </div>
+                <div class="form-group">
+                    <label for="">Contraseña</label>
+                    <input class="form-control" name="password"
+                           placeholder="Ingresa tu contraseña" type="password">
+                    <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                </div>
+                <div class="buttons-w">
+                    <button class="btn btn-primary">Iniciar sesión</button>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox">
+                            Recordar
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <p>¿Aún no tienes cuenta? <a href="{% url 'authentication:register' %}">Regístrate</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'writer/base_writer.html' %}
+{% load static writer_tag %}
+
+
+{% block extra_css %}
+    <link href="{% static 'icon_fonts_assets/batch-icons/style.css' %}" rel="stylesheet">
+
+
+    <link href="{% static 'css/gallery.css' %}" rel="stylesheet">
+    <style>
+        .content-answer {
+            padding: 12px 15px;
+            background: #f4f4f4;
+            border: 1px solid #f4f4f4;
+            margin-bottom: 15px;
+        }
+
+        .add-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 30%;
+            width: 100%;
+            opacity: .5;
+            cursor: pointer;
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        .add-item:hover {
+            opacity: 1;
+        }
+
+        .add-item i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .add-item span {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .bg-item {
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .title-resume-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-resume-item h5 {
+            margin: 0;
+        }
+
+        .btn-delete-item {
+            position: absolute;
+            right: 22px;
+            top: 5px;
+        }
+
+        .btn-delete-item,
+        .btn-remove {
+            padding: 12px 16px !important;
+            font-weight: bold;
+            background-color: #ffffff !important;
+            border: 0;
+            box-shadow: 0px 2px 4px rgb(126 142 177 / 12%);
+            border-radius: 5px;
+            z-index: 0;
+            cursor: pointer !important;
+            opacity: 1;
+            font-size: 10px;
+        }
+
+        .btn-remove,
+        .btn-delete-item span {
+            font-weight: bold;
+        }
+
+        .btn-remove,
+        .btn-delete-item:hover {
+            color: red;
+        }
+
+        .element-box-content mark {
+            margin: 0 5px;
+        }
+
+        .tasks-list-w.general-data {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #eeeeee;
+        }
+    </style>
+{% endblock extra_css %}
+
+
+{% block content_block %}
+    <div id="v-app">
+        <div class="row">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, similique. <br>
+            {{qualified}}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _js %}
+    <script>
+        {% get_projects request 'for_correction' as projects_for_correction %}
+        {% get_projects request 'send' as projects_send %}
+        {% get_projects request 'draft' as projects_draft %}
+        {% get_projects request 'qualified' as projects_qualified %}
+
+        let qualified = {{ projects_qualified|count }};
+        let send = {{ projects_send|count }};
+        let for_correction = {{ projects_for_correction|count }};
+        let draft = {{ projects_draft|count }};
+
+        document.getElementById('qualifiedCount').innerText = `(${qualified})`;
+        document.getElementById('forCorrectionCount').innerText = `(${for_correction})`;
+        document.getElementById('sendCount').innerText = `(${send})`;
+        document.getElementById('draftCount').innerText = `(${draft})`;
+    </script>
+
+{% endblock %}

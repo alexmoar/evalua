@@ -1,0 +1,38 @@
+<div class="step-content active" id="stepContent1" v-show="step==1">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="form-header">
+                Datos básicos
+            </h5>
+            <div class="form-desc">
+                En esta sección agrega los datos generales
+                (importantes) de tu
+                proyecto
+            </div>
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input class="form-control" name="title" id="title" v-model="title"
+                       placeholder="Agrega un título del proyecto"
+                       type="text">
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="form-header">
+                        Descripción
+                    </h5>
+                    <div class="form-desc">
+                        Agrega una descripción general del
+                        proyecto
+                    </div>
+                    <textarea cols="80" name="description" v-model="description" id="ckeditor-main"
+                              rows="10"></textarea>
+                </div>
+            </div>
+            <div class="form-buttons-w text-right">
+                <button class="btn btn-primary step-trigger-btn" :disabled="disableStepOne"
+                        @click="createProject">Continuar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

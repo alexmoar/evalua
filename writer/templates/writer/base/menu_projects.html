@@ -1,0 +1,27 @@
+{% load writer_tag %}
+
+<div class="todo-sidebar-section-sub-section">
+    <div class="todo-sidebar-section-sub-section-toggler">
+        <i class="os-icon os-icon-ui-23"></i>
+    </div>
+    <div class="todo-sidebar-section-sub-header todo-sidebar-section-sub-section-toggler">
+        <i class="os-icon {{ icon }}"></i>
+        <h6>
+            {{ title }} <span class="danger-color">({{ query|count }})</span>
+        </h6>
+    </div>
+    <div class="todo-sidebar-section-sub-section-content" style="display: none">
+        <ul class="items-list">
+            {% for p in query %}
+                <li>
+                    <a href="{% url 'writer:edit_project' p.id %}"
+                       class="href-view-project">{{ p.title|truncatechars:20 }}
+                        {% if status == 'qualified' %}
+                            <i class="qualification approved">9.5</i>
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="tasks-section">
+    <div class="tasks-header-w">
+        <a class="tasks-header-toggler" href="#" @click="getItemsProject">
+            <i class="os-icon os-icon-ui-23"></i>
+        </a>
+        <h5 class="tasks-header tasks-header-toggler" @click="getItemsProject">
+            Items ({{ count_items }})
+        </h5>
+        <span class="tasks-sub-header">Tue, Sep 24th</span>
+    </div>
+    <!--START - Tasks List-->
+    <div class="tasks-list-w" style="display: none">
+        <p>
+            En esta sección agrega cada uno de los items de
+            los cuales se compone tu proyecto, pueden ser preguntas o secciones de
+            contenido separadas por título y respuesta.
+        </p>
+        {% include 'writer/edit/items.html' %}
+    </div>
+</div>

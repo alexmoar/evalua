@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body_tags %}class="auth-wrapper"{% endblock %}
+
+
+{% block extra_css %}
+    <style>
+        .title-one {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 2rem;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem
+        }
+        a.disabled {
+          pointer-events: none;
+          cursor: default;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="all-wrapper menu-side with-pattern">
+        <div class="auth-box-w wider">
+            <div class="logo-w">
+                <a href="/"><img alt="" src="{% static 'img/evalualogo.png' %}"></a>
+            </div>
+            <div id="title-one">
+                <h4 class="text-center title-one">
+                    ¿Quiero ser?
+                </h4>
+            </div>
+            <div id="title-two" style="display: none">
+                <h4 class="auth-header">
+                    Crear nueva cuenta
+                </h4>
+            </div>
+
+            <form id="formValidate" action="{% url 'authentication:register' %}" method="post">
+                {% csrf_token %}
+
+                {% include 'alert_message.html' %}
+
+                <div class="steps-w">
+                    <div class="step-triggers" style="display: none">
+                        <a class="step-trigger active" href="#stepContent1">First Step</a>
+                        <a class="step-trigger" href="#stepContent2" aria-disabled="true">Second Step</a>
+                        <a class="step-trigger" href="#stepContent3">Third Step</a>
+                    </div>
+                    <div class="step-contents">
+                        <div class="step-content active" id="stepContent1">
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <div class="profile-tile"
+                                         style="justify-content: space-around; border-bottom: 0;
+                                         padding-bottom: 0;margin-bottom: 0;">
+                                        <a class="step-trigger-btn"
+                                           href="#stepContent2" onclick="checkRol('writer')">
+                                            <div class="profile-tile-box">
+                                                <div class="pt-avatar-w">
+                                                    <img alt="" src="{% static 'img/.jpg' %}">
+                                                </div>
+                                                <div class="pt-user-name">
+                                                    Escritor
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="step-trigger-btn"
+                                           href="#stepContent2" onclick="checkRol('evaluator')">
+                                            <span class="profile-tile-box">
+                                                <div class="pt-avatar-w">
+                                                    <img alt="" src="{% static 'img/' %}">
+                                                </div>
+                                                <div class="pt-user-name">
+                                                    Calificador
+                                                </div>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="display: none">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input id="writer" class="form-check-input"
+                                               name="role" type="radio"
+                                               required="required"
+                                               value="writer">Escritor</label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input id="evaluator" class="form-check-input" name="role"
+                                               type="radio" required="required" value="evaluator">Evaluador</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-content" id="stepContent2">
+                            <div class="form-group">
+                                <label for="first_name">Nombre(s)</label>
+                                <input class="form-control" name="first_name" id="first_name"
+                                       required="required" data-error="Este campo es requerido"
+                                       onkeyup="checkStepTwo()"
+                                       placeholder="Ingresa tu(s) nombre(s)" type="text">
+                                <div class="pre-icon os-icon os-icon-newspaper"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Apellido(s)</label>
+                                <input class="form-control" name="last_name" id="last_name"
+                                       required="required" data-error="Este campo es requerido"
+                                       onkeyup="checkStepTwo()"
+                                       placeholder="Ingresa tu(s) apellido(s)" type="text">
+                                <div class="pre-icon os-icon os-icon-newspaper"></div>
+                            </div>
+                            <div class="form-buttons-w row">
+                                <div class="col-sm-6 text-left">
+                                    <a class="btn btn-secondary step-trigger-btn"
+                                       href="#stepContent1" onclick="checkRol('')">Volver</a>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <a class="btn btn-primary step-trigger-btn disabled"
+                                       id="btnContinueStepTwo"
+                                       href="#stepContent3">Continuar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-content" id="stepContent3">
+                            <div class="form-group">
+                                <label for="username">Nombre de usuario</label>
+                                <input class="form-control" name="username" id="username"
+                                       required="required" data-error="Este campo es requerido"
+                                       data-minlength="4" onkeyup="checkStepThree()"
+                                       placeholder="Ingresa tu nombre de usuario" type="text">
+                                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input class="form-control" name="email" id="email"
+                                       required="required" data-error="Este campo es requerido"
+                                        onkeyup="checkStepThree()"
+                                       placeholder="Ingresa tu email" type="email">
+                                <div class="pre-icon os-icon os-icon-email-2-at2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="password">Contraseña</label>
+                                        <input class="form-control" name="password" id="password"
+                                               required="required" data-error="Este campo es requerido"
+                                               data-minlength="6" onkeyup="checkStepThree()"
+                                               placeholder="Contraseña" type="password">
+                                        <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group" id="confirm-password">
+                                        <label for="repeat_password">Confirmar</label>
+                                        <input class="form-control" name="repeat_password" id="repeat_password"
+                                               required="required" data-error="Este campo es requerido"
+                                               data-minlength="6" onkeyup="checkStepThree()"
+                                               placeholder="Repetir contraseña" type="password">
+                                        <div class="help-block form-text text-muted form-control-feedback">
+                                            Confirma tu contraseña
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="alert"></div>
+                            <div class="buttons-w row text-right">
+                                <div class="col-sm-6 text-left">
+                                    <a class="btn btn-secondary step-trigger-btn" href="#stepContent2">Volver</a>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <button class="btn btn-primary disabled" id="btnContinueStepThree" disabled>
+                                        Registrarme ahora
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-4 text-center buttons-w">
+                    <p>Ya tienes cuenta? <a href="{% url 'authentication:login' %}">Iniciar sesión</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        let t1 = document.getElementById('title-one')
+        let t2 = document.getElementById('title-two')
+        // Step two
+        let first_name = document.getElementById('first_name')
+        let last_name = document.getElementById('last_name')
+        let btn_two = document.getElementById('btnContinueStepTwo')
+        // Step three
+        let username = document.getElementById('username')
+        let email = document.getElementById('email')
+        let password = document.getElementById('password')
+        let repeat_password = document.getElementById('repeat_password')
+        let content_repeat = document.getElementById('confirm-password')
+        let btn_three = document.getElementById('btnContinueStepThree')
+
+
+        function checkRol(rol) {
+            t1.style.display = t1.style.display === 'none' ? 'block' : 'none'
+            t2.style.display = t2.style.display === 'none' ? 'block' : 'none'
+
+            if (rol) {
+                document.getElementById(rol).checked = true;
+
+            }
+        }
+
+        function checkStepTwo() {
+            if (first_name.value.length > 2 && last_name.value.length > 2) {
+                btn_two.classList.remove('disabled')
+            } else {
+                btn_two.classList.add('disabled')
+            }
+        }
+        function checkStepThree() {
+            if(password.value && repeat_password.value && password.value !== repeat_password.value) {
+                content_repeat.classList.add('has-error')
+                content_repeat.classList.add('has-danger')
+                content_repeat.getElementsByClassName('help-block')[0].innerHTML = `
+                  Las contraseñas no coinciden
+                `;
+                return
+            } else {
+                content_repeat.classList.remove('has-error');
+                content_repeat.classList.remove('has-danger');
+                content_repeat.getElementsByClassName('help-block')[0].innerHTML = `
+                  Confirma tu contraseña
+                `;
+            }
+
+            if (username.value.length > 2 && email.value.length > 2 &&
+                password.value.length > 2 && repeat_password.value.length > 2 &&
+                password.value === repeat_password.value) {
+                btn_three.classList.remove('disabled');
+                btn_three.removeAttribute('disabled');
+            } else {
+                document.getElementById('btnContinueStepThree').classList.add('disabled');
+                btn_three.setAttribute('disabled', 'disabled');
+            }
+        }
+    </script>
+{% endblock %}

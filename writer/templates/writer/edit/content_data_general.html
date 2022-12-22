@@ -1,0 +1,58 @@
+<div class="tasks-section">
+    <div class="tasks-header-w">
+        <a class="tasks-header-toggler" href="#"><i class="os-icon os-icon-ui-23"></i></a>
+        <h5 class="tasks-header tasks-header-toggler">
+            Datos generales
+        </h5>
+        <span class="tasks-sub-header">{{ project.created_at }}</span>
+        <a class="add-task-btn" v-if="isEditable"
+           @click="editGeneralData"
+           data-target="#editDataGeneralModal"
+           data-toggle="modal" href="#"><i
+                class="os-icon os-icon-ui-22"></i><span>Editar</span>
+        </a>
+    </div>
+    <div class="tasks-list-w general-data" style="display: none">
+        <h2>
+            ${ title }
+        </h2>
+        <br>
+        <div v-html="description"></div>
+
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade" id="editDataGeneralModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header faded smaller">
+                <div class="modal-title">
+                    <span>Editar datos generales</span>
+                </div>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                        aria-hidden="true"> &times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input class="form-control" name="title" id="title"
+                                   placeholder="Ingresa un título"
+                                   type="text" v-model="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Description</label>
+                            <textarea class="form-control" name="description" id="description" rows="3">
+                                </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer buttons-on-left">
+                <button class="btn btn-teal" type="button" @click="fetchProject()">Guardar cambios</button>
+                <button class="btn btn-link" data-dismiss="modal" type="button"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+{% load static %}
+
+<!-------------------- START - Mobile Menu  -------------------->
+<div class="menu-mobile menu-activated-on-click color-scheme-dark">
+    <div class="mm-logo-buttons-w">
+        <a class="mm-logo" href="{% url 'evaluator:dashboard' %}">
+            <img src="{% static 'img/logo.png' %}">
+            <span>{{ request.user.username }}</span>
+        </a>
+        <div class="mm-buttons">
+            <div class="content-panel-open">
+                <div class="os-icon os-icon-grid-circles"></div>
+            </div>
+            <div class="mobile-menu-trigger">
+                <div class="os-icon os-icon-hamburger-menu-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-and-user">
+        <div class="logged-user-w">
+            <div class="avatar-w">
+                <a href="{% url 'evaluator:dashboard' %}">
+                    <img alt="" src="{% static 'img/avatar1.jpg' %}">
+                </a>
+            </div>
+            <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                    {{ request.user.full_name }}
+                </div>
+                <div class="logged-user-role">
+                    {{ request.user.get_role }}
+                </div>
+            </div>
+        </div>
+        <!--------------------
+        START - Mobile Menu List
+        -------------------->
+        <ul class="main-menu">
+            {% include 'evaluator/menu.html' %}
+        </ul>
+        <!--------------------
+        END - Mobile Menu List
+        -------------------->
+    </div>
+</div>
+<!-------------------- END - Mobile Menu-------------------->
+
+<!--------------------  START - Menu side -------------------->
+<div class="desktop-menu menu-side-w menu-activated-on-click" id="desktop-menu">
+    <div class="logo-w">
+        <a class="logo" href="{% url 'evaluator:dashboard' %}">
+            <div class="logo-element"></div>
+            <div class="logo-label">
+                {{ request.user.username }}
+            </div>
+        </a>
+    </div>
+    <div class="menu-and-user">
+        <div class="logged-user-w">
+            <div class="logged-user-i">
+                <div class="avatar-w">
+                    <a href="{% url 'evaluator:dashboard' %}">
+                        <img alt="" src="{% static 'img/avatar1.jpg' %}">
+                    </a>
+                </div>
+                <div class="logged-user-info-w">
+                    <div class="logged-user-name">
+                        {{ request.user.full_name }}
+                    </div>
+                    <div class="logged-user-role">
+                        {{ request.user.get_role }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="main-menu">
+            {% include 'evaluator/menu.html' %}
+        </ul>
+    </div>
+</div>
+<!-------------------- END - Menu side -------------------->

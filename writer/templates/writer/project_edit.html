@@ -1,0 +1,187 @@
+{% extends 'writer/base_writer.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+    <link href="{% static 'icon_fonts_assets/batch-icons/style.css' %}" rel="stylesheet">
+
+
+    <link href="{% static 'css/gallery.css' %}" rel="stylesheet">
+    <style>
+        .content-answer {
+            padding: 12px 15px;
+            background: #f4f4f4;
+            border: 1px solid #f4f4f4;
+            margin-bottom: 15px;
+        }
+
+        .add-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 30%;
+            width: 100%;
+            opacity: .5;
+            cursor: pointer;
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        .add-item:hover {
+            opacity: 1;
+        }
+
+        .add-item i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .add-item span {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .bg-item {
+            background-color: rgba(238, 238, 238, 0.5)
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .title-resume-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-resume-item h5 {
+            margin: 0;
+        }
+
+        .btn-delete-item {
+            position: absolute;
+            right: 22px;
+            top: 5px;
+        }
+
+        .btn-delete-item,
+        .btn-remove {
+            padding: 12px 16px !important;
+            font-weight: bold;
+            background-color: #ffffff !important;
+            border: 0;
+            box-shadow: 0px 2px 4px rgb(126 142 177 / 12%);
+            border-radius: 5px;
+            z-index: 0;
+            cursor: pointer !important;
+            opacity: 1;
+            font-size: 10px;
+        }
+
+        .btn-remove,
+        .btn-delete-item span {
+            font-weight: bold;
+        }
+
+        .btn-remove,
+        .btn-delete-item:hover {
+            color: red;
+        }
+
+        .element-box-content mark {
+            margin: 0 5px;
+        }
+
+        .tasks-list-w.general-data {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #F9F9F9;
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+        .tasks-header.tasks-header-toggler {
+            position: relative!important;
+            left: 0!important;
+            top: 10px!important;
+            color: #334151!important;
+            cursor: pointer;
+        }
+        .show-item {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-color: #fff;
+            z-index: 99;
+            left: 0;
+            top: 0;
+            overflow: scroll;
+        }
+        .cke_dialog {
+            z-index: 10010;
+        }
+    </style>
+{% endblock extra_css %}
+
+
+{% block content_block %}
+    <div id="v-app">
+        <div id="stepContent1" v-show="step==3">
+            <h4 class="todo-content-header">
+                <i class="os-icon os-icon-ui-83"></i><span>{{ project.title }}</span>
+            </h4>
+            <div class="all-tasks-w">
+                {% include 'writer/edit/content_data_general.html' %}
+                {% include 'writer/edit/content_data_files.html' %}
+            </div>
+            <div class="form-buttons-w text-right" v-if="isEditable">
+                <button class="btn btn-secondary"
+                        data-target="#deleteProjectModal"
+                        data-toggle="modal">
+                    Eliminar
+                </button>
+                <button @click="draftProject" class="btn btn-info step-trigger-btn">
+                    Guardar borrador
+                </button>
+                <button @click="showStep(2)" class="btn btn-primary step-trigger-btn">
+                    Continuar
+                </button>
+            </div>
+        </div>
+        {% include 'writer/step_end.html' with step=2 step_back=1 %}
+
+        <div aria-hidden="true" class="modal fade" id="deleteProjectModal" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header faded smaller">
+                        <div class="modal-title">
+                            <span>{{ project.title }} </span>
+                        </div>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                aria-hidden="true"> &times;</span></button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-12">
+                            <h4>Estás seguro de querer eliminar este proyecto?</h4>
+                        </div>
+                    </div>
+                    <div class="modal-footer buttons-on-left">
+                        <button class="btn btn-teal" type="button" @click="deleteProject({{ project.id }})">
+                            Si, eliminar
+                        </button>
+                        <button class="btn btn-link" data-dismiss="modal" type="button">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _js %}
+
+    {% include 'writer/edit/script.html' %}
+
+{% endblock %}

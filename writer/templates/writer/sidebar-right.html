@@ -1,0 +1,162 @@
+{% load static %}
+
+<div class="content-panel">
+    <div class="content-panel-close">
+        <i class="os-icon os-icon-close"></i>
+    </div>
+    <div class="element-wrapper">
+        <h6 class="element-header">
+            Enlaces rápidos
+        </h6>
+        <div class="element-box-tp">
+            <div class="el-buttons-list full-width">
+                <a class="btn btn-white btn-sm" href="{% url 'writer:add_project' %}">
+                    <i class="os-icon os-icon-delivery-box-2"></i><span>Crear nuevo proyecto</span>
+                </a>
+                <a class="btn btn-white btn-sm" href="#">
+                    <i class="os-icon os-icon-window-content"></i><span>Revisar comentarios</span>
+                </a>
+                <a class="btn btn-white btn-sm" href="#">
+                    <i class="os-icon os-icon-wallet-loaded"></i><span>Configuraciones</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="element-wrapper">
+        <h6 class="element-header">
+            Mejores calificadores
+        </h6>
+        <div class="element-box-tp">
+            <div class="profile-tile">
+                <a class="profile-tile-box" href="users_profile_small.html">
+                    <div class="pt-avatar-w">
+                        <img alt="" src="{% static 'img/avatar1.jpg' %}">
+                    </div>
+                    <div class="pt-user-name">
+                        Mark Parson
+                    </div>
+                </a>
+                <div class="profile-tile-meta">
+                    <ul>
+                        <li>
+                            Last Login:<strong>Online Now</strong>
+                        </li>
+                        <li>
+                            Tickets:<strong>12</strong>
+                        </li>
+                        <li>
+                            Response Time:<strong>2 hours</strong>
+                        </li>
+                    </ul>
+                    <div class="pt-btn">
+                        <a class="btn btn-success btn-sm" href="apps_full_chat.html">Send
+                            Message</a>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-tile">
+                <a class="profile-tile-box" href="users_profile_small.html">
+                    <div class="pt-avatar-w">
+                        <img alt="" src="{% static 'img/avatar3.jpg' %}">
+                    </div>
+                    <div class="pt-user-name">
+                        John Mayers
+                    </div>
+                </a>
+                <div class="profile-tile-meta">
+                    <ul>
+                        <li>
+                            Last Login:<strong>Online Now</strong>
+                        </li>
+                        <li>
+                            Tickets:<strong>9</strong>
+                        </li>
+                        <li>
+                            Response Time:<strong>3 hours</strong>
+                        </li>
+                    </ul>
+                    <div class="pt-btn">
+                        <a class="btn btn-secondary btn-sm" href="apps_full_chat.html">Send
+                            Message</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="element-wrapper">
+        <h6 class="element-header">
+            Actividad reciente
+        </h6>
+        <div class="element-box-tp">
+            <div class="activity-boxes-w">
+                <div class="activity-box-w">
+                    <div class="activity-time">
+                        10 Min
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-avatar">
+                            <img alt="" src="{% static 'img/avatar1.jpg' %}">
+                        </div>
+                        <div class="activity-info">
+                            <div class="activity-role">
+                                Mark Pearson
+                            </div>
+                            <strong class="activity-title">Opened New Account</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-box-w">
+                    <div class="activity-time">
+                        2 Hours
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-avatar">
+                            <img alt="" src="{% static 'img/avatar2.jpg' %}">
+                        </div>
+                        <div class="activity-info">
+                            <div class="activity-role">
+                                John Mayers
+                            </div>
+                            <strong class="activity-title">Posted Comment</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-box-w">
+                    <div class="activity-time">
+                        5 Hours
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-avatar">
+                            <img alt="" src="{% static 'img/avatar3.jpg' %}">
+                        </div>
+                        <div class="activity-info">
+                            <div class="activity-role">
+                                Kate Wallet
+                            </div>
+                            <strong class="activity-title">Opened New Account</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-box-w">
+                    <div class="activity-time">
+                        2 Days
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-avatar">
+                            <img alt="" src="{% static 'img/avatar4.jpg' %}">
+                        </div>
+                        <div class="activity-info">
+                            <div class="activity-role">
+                                Monica Bonak
+                            </div>
+                            <strong class="activity-title">Uploaded Image</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------
+END - Sidebar
+-------------------->

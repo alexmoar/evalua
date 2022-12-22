@@ -1,0 +1,74 @@
+{% extends 'writer/base.html' %}
+{% load static writer_tag %}
+
+
+{% block _css %}
+    <style>
+        .danger-color {
+            color: #e65252;
+        }
+        .href-view-project {
+            display: flex!important;
+            justify-content: space-between;
+        }
+        .qualification {
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .qualification.approved {
+            color: #4d9121;
+        }
+        .qualification.reapproved {
+            color: #e65252;
+        }
+        @media (max-width: 1650px) {
+            body.with-content-panel .content-box {
+                padding-left: 2rem!important;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+{% block content_writer %}
+    <div class="todo-app-w">
+        <!--START - To Do SIDEBAR-->
+        <div class="todo-sidebar">
+            <div class="todo-sidebar-section">
+                <div class="todo-sidebar-section-contents">
+                    <ul class="projects-list">
+                        <li class="add-new-project">
+                            <a href="{% url 'writer:add_project' %}">Agregar un nuevo proyecto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="todo-sidebar-section">
+                <h4 class="todo-sidebar-section-header">
+                    <span><a href="{% url 'writer:projects' %}">Mis proyectos</a></span>
+                </h4>
+                <div class="todo-sidebar-section-contents">
+                    {% get_projects request 'draft' as projects_draft %}
+                    {% include 'writer/base/menu_projects.html' with status='draft' title='En borrador' query=projects_draft icon='os-icon-documents-11' %}
+
+                    {% get_projects request 'send' as projects_send %}
+                    {% include 'writer/base/menu_projects.html' with status='send' title='Enviados' query=projects_send icon='os-icon-ui-34' %}
+
+
+                    {% get_projects request 'for_correction' as projects_for_correction %}
+                    {% include 'writer/base/menu_projects.html' with status='for_correction' title='Por corregir' query=projects_for_correction icon='os-icon-ui-49' %}
+
+                    {% get_projects request 'qualified' as projects_qualified %}
+                    {% include 'writer/base/menu_projects.html' with status='qualified' title='Calificados' query=projects_qualified icon='os-icon-ui-21' %}
+                </div>
+            </div>
+        </div>
+        <!--END - To Do SIDEBAR-->
+        <div class="todo-content">
+            {% block content_block %}{% endblock content_block %}
+        </div>
+    </div>
+
+{% endblock %}
+
