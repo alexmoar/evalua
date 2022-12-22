@@ -28,10 +28,10 @@ SECRET_KEY = 'django-insecure-ou+!bube-s#dt606r@ctu^zh_a6-a1+gxiv%!kg1)%6%4isqtd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://evalua-proyecto.herokuapp.com"]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://https://evalua-proyecto.herokuapp.com'
+    'https://evalua-proyecto.herokuapp.com'
 ]
 
 # Application definition
