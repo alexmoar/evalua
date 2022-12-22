@@ -10972,7 +10972,7 @@ body.with-content-panel .content-box {
 
 .content-w {
   background-color: #f2f4f8;
-  background-image: url("../img/bg-pattern.png");
+  background-image: url("");
   background-repeat: no-repeat;
   background-position: 20px 50px;
   vertical-align: top;
@@ -11491,7 +11491,7 @@ body.with-content-panel .content-box {
   content: "";
   width: 26px;
   height: 26px;
-  background-color: #659aff;
+  background-color: #fff;
   border-radius: 15px;
   right: -17px;
   position: absolute;
