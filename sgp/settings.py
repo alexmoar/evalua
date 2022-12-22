@@ -30,9 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["https://evalua-proyecto.herokuapp.com"]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://evalua-proyecto.herokuapp.com'
-]
+
 
 # Application definition
 
@@ -58,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -174,4 +172,7 @@ MESSAGE_TAGS = {
 
 MAX_UPLOAD_SIZE = 2000000000000000
 import django_heroku
+CSRF_TRUSTED_ORIGINS = [
+    'https://evalua-proyecto.herokuapp.com'
+]
 django_heroku.settings(locals())
