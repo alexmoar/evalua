@@ -6,4 +6,5 @@ Version django: `4.0.4`
 
 
 
-Made with ♥ by alex & andres
+Made with ♥ by alex, jose ,bris
+
